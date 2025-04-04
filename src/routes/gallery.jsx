@@ -38,7 +38,7 @@ function RouteComponent() {
             {images.map((image) => (
               <div key={image.id} className=" p-2 rounded shadow object-cover">
                 <img
-                  src={`https://architect-ip-studios-backend.onrender.com/${image.url}`} // ✅ Uses proxy, so no need to manually add server URL
+                  src={`${image.url}`} // ✅ Uses proxy, so no need to manually add server URL
                   alt="Architect Design"
                   className="w-full h-[260px] object-cover rounded-lg hover:scale-105 transition-all duration-300"
                 />
