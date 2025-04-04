@@ -11,7 +11,7 @@ function RouteComponent() {
 
   useEffect(() => {
     axios
-      .get("/api/projects")
+      .get("https://architect-ip-studios-backend.onrender.com/api/projects")
       .then((res) => {
         setProjects(res.data);
       })

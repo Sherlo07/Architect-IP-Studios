@@ -11,7 +11,9 @@ function RouteComponent() {
 
   useEffect(() => {
     axios
-      .get("/api/architectimages") // ✅ Uses proxy, so no need to add full URL
+      .get(
+        "https://architect-ip-studios-backend.onrender.com/api/architectimages"
+      ) // ✅ Uses proxy, so no need to add full URL
       .then((res) => {
         setImages(res.data);
       })
