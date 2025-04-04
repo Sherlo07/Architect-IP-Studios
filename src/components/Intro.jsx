@@ -108,7 +108,7 @@ const Intro = () => {
 
         <div className="w-full h-[350px] mt-10">
           <video
-            src="https://drive.google.com/uc?export=download&id=1XSpO2FKmFQU4fl2CkmKvWKJ-yvDEY4mz"
+            src="https://videos.pexels.com/video-files/31422854/13404305_1920_1080_30fps.mp4"
             playsInline
             autoPlay
             muted
