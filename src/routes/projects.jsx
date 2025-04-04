@@ -41,7 +41,7 @@ function RouteComponent() {
           {projects.map((project) => (
             <div key={project.id} className="p-2 rounded-lg shadow-lg">
               <img
-                src={`http://localhost:3000${project.url}`}
+                src={`https://architect-ip-studios-backend.onrender.com/${project.url}`}
                 alt={`Project ${project.id}`}
                 className="w-full h-[180px] sm:h-[250px] object-cover rounded-lg hover:scale-105 transition-transform duration-300"
               />
