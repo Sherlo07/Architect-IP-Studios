@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as ProjectsImport } from './routes/projects'
+import { Route as LoginImport } from './routes/login'
 import { Route as GalleryImport } from './routes/gallery'
 import { Route as ContactImport } from './routes/contact'
 import { Route as AboutImport } from './routes/about'
@@ -22,6 +23,12 @@ import { Route as IndexImport } from './routes/index'
 const ProjectsRoute = ProjectsImport.update({
   id: '/projects',
   path: '/projects',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LoginRoute = LoginImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -81,6 +88,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GalleryImport
       parentRoute: typeof rootRoute
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginImport
+      parentRoute: typeof rootRoute
+    }
     '/projects': {
       id: '/projects'
       path: '/projects'
@@ -98,6 +112,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
+  '/login': typeof LoginRoute
   '/projects': typeof ProjectsRoute
 }
 
@@ -106,6 +121,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
+  '/login': typeof LoginRoute
   '/projects': typeof ProjectsRoute
 }
 
@@ -115,15 +131,23 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
+  '/login': typeof LoginRoute
   '/projects': typeof ProjectsRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact' | '/gallery' | '/projects'
+  fullPaths: '/' | '/about' | '/contact' | '/gallery' | '/login' | '/projects'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/gallery' | '/projects'
-  id: '__root__' | '/' | '/about' | '/contact' | '/gallery' | '/projects'
+  to: '/' | '/about' | '/contact' | '/gallery' | '/login' | '/projects'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/gallery'
+    | '/login'
+    | '/projects'
   fileRoutesById: FileRoutesById
 }
 
@@ -132,6 +156,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
   GalleryRoute: typeof GalleryRoute
+  LoginRoute: typeof LoginRoute
   ProjectsRoute: typeof ProjectsRoute
 }
 
@@ -140,6 +165,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
   GalleryRoute: GalleryRoute,
+  LoginRoute: LoginRoute,
   ProjectsRoute: ProjectsRoute,
 }
 
@@ -157,6 +183,7 @@ export const routeTree = rootRoute
         "/about",
         "/contact",
         "/gallery",
+        "/login",
         "/projects"
       ]
     },
@@ -171,6 +198,9 @@ export const routeTree = rootRoute
     },
     "/gallery": {
       "filePath": "gallery.jsx"
+    },
+    "/login": {
+      "filePath": "login.jsx"
     },
     "/projects": {
       "filePath": "projects.jsx"
