@@ -5,11 +5,18 @@ import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  server:{
-    proxy:{
-      "/api": "http://localhost:3000/",
+  server: {
+    port: 5173,
+    proxy: {
+      "/api": "http://localhost:5000/",
+    },
   },
-  },
-  plugins: [  TanStackRouterVite({ target: 'react', autoCodeSplitting: true }), tailwindcss(),react()],
-  
+  plugins: [
+    TanStackRouterVite({ 
+      target: 'react', 
+      autoCodeSplitting: true 
+    }), 
+    tailwindcss(),
+    react()
+  ],
 })

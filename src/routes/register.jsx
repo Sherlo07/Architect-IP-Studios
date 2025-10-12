@@ -4,28 +4,29 @@ import { useNavigate } from "@tanstack/react-router";
 import { useAuth } from "../contexts/AuthContext.jsx";
 import { motion } from "framer-motion";
 
-export const Route = createFileRoute("/login")({
-  component: Login,
+export const Route = createFileRoute("/register")({
+  component: Signup,
 });
 
-function Login() {
+function Signup() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { register } = useAuth();
 
-  const handleLogin = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
-
-    const result = await login(email, password);
+    
+    const result = await register(name, email, password);
     
     if (result.success) {
       setMessage(result.message);
-      // Show success message for 1 second before redirecting
+      // Show success message for 2 seconds before redirecting
       setTimeout(() => {
-        navigate({ to: "/" });
-      }, 1000);
+        navigate({ to: "/login" });
+      }, 2000);
     } else {
       setMessage(result.message);
     }
@@ -48,7 +49,7 @@ function Login() {
           type: "spring",
           stiffness: 100
         }}
-        onSubmit={handleLogin}
+        onSubmit={handleSignup}
         className="bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-xl w-full max-w-md border border-gray-100"
       >
         <motion.h2 
@@ -57,7 +58,7 @@ function Login() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-3xl font-bold mb-6 text-center text-gray-800"
         >
-          Welcome Back 👋
+          Create Account ✨
         </motion.h2>
 
         <motion.div 
@@ -71,6 +72,35 @@ function Login() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4, delay: 0.4 }}
+          >
+            Full Name
+          </motion.label>
+          <motion.input
+            type="text"
+            placeholder="Enter your name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:outline-none transition"
+            whileFocus={{ 
+              scale: 1.02,
+              boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.1)"
+            }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+          />
+        </motion.div>
+
+        <motion.div 
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mb-4"
+        >
+          <motion.label 
+            className="block text-sm font-medium mb-1 text-gray-700"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4, delay: 0.5 }}
           >
             Email
           </motion.label>
@@ -92,14 +122,14 @@ function Login() {
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
           className="mb-6"
         >
           <motion.label 
             className="block text-sm font-medium mb-1 text-gray-700"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, delay: 0.5 }}
+            transition={{ duration: 0.4, delay: 0.6 }}
           >
             Password
           </motion.label>
@@ -123,7 +153,7 @@ function Login() {
           className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-md"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
           whileHover={{ 
             scale: 1.02,
             backgroundColor: "#2563eb",
@@ -131,7 +161,7 @@ function Login() {
           }}
           whileTap={{ scale: 0.98 }}
         >
-          Login
+          Sign Up
         </motion.button>
 
         <motion.div
@@ -145,7 +175,7 @@ function Login() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               className={`mt-4 text-center text-sm font-medium ${
-                message.includes("successful") ? "text-green-500" : "text-red-500"
+                message.includes("Successfully") ? "text-green-500" : "text-red-500"
               }`}
             >
               {message}
@@ -156,12 +186,12 @@ function Login() {
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
           className="mt-6 text-center text-gray-600 text-sm"
         >
-          Don't have an account?{" "}
+          Already have an account?{" "}
           <motion.button
-            onClick={() => navigate({ to: "/register" })}
+            onClick={() => navigate({ to: "/login" })}
             className="text-blue-600 font-medium hover:underline cursor-pointer"
             whileHover={{ 
               scale: 1.05,
@@ -170,7 +200,7 @@ function Login() {
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
-            Sign up
+            Login
           </motion.button>
         </motion.p>
       </motion.form>

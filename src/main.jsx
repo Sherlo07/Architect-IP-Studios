@@ -4,12 +4,19 @@ import "./index.css";
 
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
+import { AuthProvider } from "./contexts/AuthContext.jsx";
 
-// Create the router instance
-const router = createRouter({ routeTree });
+// Create the router instance with better configuration
+const router = createRouter({ 
+  routeTree,
+  defaultPreload: "intent",
+  defaultPreloadStaleTime: 0,
+});
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router}></RouterProvider>
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>
 );
