@@ -24,7 +24,7 @@ function Login() {
       setMessage(result.message);
       // Show success message for 1 second before redirecting
       setTimeout(() => {
-        navigate({ to: "/" });
+      navigate({ to: "/" });
       }, 1000);
     } else {
       setMessage(result.message);
@@ -139,7 +139,7 @@ function Login() {
           animate={{ opacity: 1, height: "auto" }}
           transition={{ duration: 0.3 }}
         >
-          {message && (
+        {message && (
             <motion.p 
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -148,7 +148,7 @@ function Login() {
                 message.includes("successful") ? "text-green-500" : "text-red-500"
               }`}
             >
-              {message}
+            {message}
             </motion.p>
           )}
         </motion.div>

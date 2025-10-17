@@ -66,9 +66,9 @@ const Navbar = () => {
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
-                {item.name}
+              {item.name}
               </motion.li>
-            </Link>
+          </Link>
           </motion.div>
         ))}
       </motion.ul>
@@ -121,7 +121,7 @@ const Navbar = () => {
               transition={{ duration: 0.3 }}
               className="flex gap-4"
             >
-              <Link to="/login">
+        <Link to="/login">
                 <motion.button 
                   className="bg-black h-8 px-4 rounded-lg text-white text-sm font-semibold hover:bg-gray-800 transition duration-300"
                   whileHover={{ 
@@ -131,9 +131,9 @@ const Navbar = () => {
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
-                  Sign In
+            Sign In
                 </motion.button>
-              </Link>
+        </Link>
               <Link to="/register">
                 <motion.button 
                   className="bg-black h-8 px-4 rounded-lg text-white text-sm font-semibold hover:bg-gray-800 transition duration-300"
@@ -144,9 +144,9 @@ const Navbar = () => {
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
-                  Sign Up
+            Sign Up
                 </motion.button>
-              </Link>
+        </Link>
             </motion.div>
           )}
         </AnimatePresence>
@@ -201,8 +201,8 @@ const Navbar = () => {
               transition={{ duration: 0.3 }}
               className="flex items-center gap-2"
             >
-              {/* Mobile Sign Buttons */}
-              <Link to="/login">
+        {/* Mobile Sign Buttons */}
+        <Link to="/login">
                 <motion.button 
                   className="bg-black px-3 py-1 rounded-lg text-white text-xs font-semibold hover:bg-gray-800 transition duration-300"
                   whileHover={{ 
@@ -212,9 +212,9 @@ const Navbar = () => {
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
-                  Sign In
+            Sign In
                 </motion.button>
-              </Link>
+        </Link>
               <Link to="/register">
                 <motion.button 
                   className="bg-black px-3 py-1 rounded-lg text-white text-xs font-semibold hover:bg-gray-800 transition duration-300"
@@ -225,9 +225,9 @@ const Navbar = () => {
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
-                  Sign Up
+            Sign Up
                 </motion.button>
-              </Link>
+        </Link>
             </motion.div>
           )}
         </AnimatePresence>
@@ -243,15 +243,15 @@ const Navbar = () => {
           <motion.div
             animate={{ rotate: menubtn ? 90 : 0 }}
             transition={{ duration: 0.3 }}
-          >
-            <MdOutlineMenu />
+        >
+          <MdOutlineMenu />
           </motion.div>
         </motion.button>
       </motion.div>
 
       {/* Mobile Navigation Dropdown */}
       <AnimatePresence>
-        {menubtn && (
+      {menubtn && (
           <motion.ul 
             initial={{ opacity: 0, y: -20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -277,13 +277,13 @@ const Navbar = () => {
                     whileTap={{ scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
                   >
-                    {item.name}
+                {item.name}
                   </motion.li>
-                </Link>
+            </Link>
               </motion.div>
-            ))}
+          ))}
           </motion.ul>
-        )}
+      )}
       </AnimatePresence>
     </motion.div>
   );

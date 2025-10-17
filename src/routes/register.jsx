@@ -169,7 +169,7 @@ function Signup() {
           animate={{ opacity: 1, height: "auto" }}
           transition={{ duration: 0.3 }}
         >
-          {message && (
+        {message && (
             <motion.p 
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -178,7 +178,7 @@ function Signup() {
                 message.includes("Successfully") ? "text-green-500" : "text-red-500"
               }`}
             >
-              {message}
+            {message}
             </motion.p>
           )}
         </motion.div>
