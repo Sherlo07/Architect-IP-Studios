@@ -1,40 +1,40 @@
 import { createFileRoute } from "@tanstack/react-router";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export const Route = createFileRoute("/gallery")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const [images, setImages] = useState([]);
-  const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+  // Static Pexels images used instead of fetching from the API
+  const INITIAL_IMAGES = [
+    {
+      id: 1,
+      url: "https://images.pexels.com/photos/29885889/pexels-photo-29885889.jpeg",
+    },
+    {
+      id: 2,
+      url: "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg",
+    },
+    {
+      id: 3,
+      url: "https://images.pexels.com/photos/417321/pexels-photo-417321.jpeg",
+    },
+    {
+      id: 4,
+      url: "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg",
+    },
+    {
+      id: 5,
+      url: "https://images.pexels.com/photos/279719/pexels-photo-279719.jpeg",
+    },
+    {
+      id: 6,
+      url: "https://images.pexels.com/photos/33225985/pexels-photo-33225985.jpeg",
+    },
+  ];
 
-  useEffect(() => {
-    if (!BASE_URL) {
-      console.error(
-        "Missing VITE_BACKEND_URL! Check your deployment environment variables."
-      );
-      setImages([]);
-      return;
-    }
-    const fetchImages = async () => {
-      try {
-        const res = await axios.get(`${BASE_URL}/api/architectimages`);
-        if (Array.isArray(res.data)) {
-          setImages(res.data);
-        } else {
-          console.error("API did not return an array:", res.data);
-          setImages([]);
-        }
-      } catch (error) {
-        console.error("Error fetching images:", error);
-        setImages([]);
-      }
-    };
-
-    fetchImages();
-  }, [BASE_URL]);
+  const [images] = useState(INITIAL_IMAGES);
 
   return (
     <div className="flex justify-center bg-[#f2f2f2] min-h-screen">

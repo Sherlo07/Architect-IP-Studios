@@ -1,24 +1,40 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
 
 export const Route = createFileRoute("/projects")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const [projects, setProjects] = useState([]);
+  // Static Pexels images used instead of fetching from the API
+  const INITIAL_PROJECTS = [
+    {
+      id: 1,
+      url: "https://images.pexels.com/photos/29885889/pexels-photo-29885889.jpeg",
+    },
+    {
+      id: 2,
+      url: "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg",
+    },
+    {
+      id: 3,
+      url: "https://images.pexels.com/photos/417321/pexels-photo-417321.jpeg",
+    },
+    {
+      id: 4,
+      url: "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg",
+    },
+    {
+      id: 5,
+      url: "https://images.pexels.com/photos/279719/pexels-photo-279719.jpeg",
+    },
+    {
+      id: 6,
+      url: "https://images.pexels.com/photos/17756333/pexels-photo-17756333.jpeg",
+    },
+  ];
 
-  useEffect(() => {
-    axios
-      .get("https://architect-ip-studios-backend.onrender.com/api/projects")
-      .then((res) => {
-        setProjects(res.data);
-      })
-      .catch((error) => {
-        console.log("Error fetching projects:", error);
-      });
-  }, []);
+  const [projects] = useState(INITIAL_PROJECTS);
 
   return (
     <div className="flex justify-center bg-[#f2f2f2] min-h-screen p-4">
