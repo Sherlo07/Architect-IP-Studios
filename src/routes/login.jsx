@@ -3,6 +3,186 @@ import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { useAuth } from "../contexts/AuthContext.jsx";
 import { motion } from "framer-motion";
+import { FcGoogle } from "react-icons/fc";
+
+export const Route = createFileRoute("/login")({
+  component: Login,
+});
+
+function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { login } = useAuth();
+  const BASE_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const result = await login(email, password);
+
+    if (result.success) {
+      setMessage(result.message);
+      setTimeout(() => {
+        navigate({ to: "/" });
+      }, 1500);
+    } else {
+      setMessage(result.message);
+    }
+    setLoading(false);
+  };
+
+  const handleGoogleSignIn = () => {
+    window.location.href = `${BASE_URL}/auth/google`;
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen w-full flex justify-center items-center bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 p-4"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 50, scale: 0.9 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{
+          duration: 0.6,
+          ease: "easeOut",
+          type: "spring",
+          stiffness: 100,
+        }}
+        className="w-full max-w-md"
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-center mb-8"
+        >
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">Welcome Back</h1>
+          <p className="text-gray-600">Sign in to your account</p>
+        </motion.div>
+
+        <motion.form
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          onSubmit={handleLogin}
+          className="bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-gray-100 space-y-6"
+        >
+          {message && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={`p-4 rounded-lg text-sm font-medium ${
+                message.includes("successful")
+                  ? "bg-green-100 text-green-800 border border-green-300"
+                  : "bg-red-100 text-red-800 border border-red-300"
+              }`}
+            >
+              {message}
+            </motion.div>
+          )}
+
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <label className="block text-sm font-semibold mb-2 text-gray-700">
+              Email Address
+            </label>
+            <input
+              type="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition placeholder-gray-400"
+            />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <label className="block text-sm font-semibold mb-2 text-gray-700">
+              Password
+            </label>
+            <input
+              type="password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition placeholder-gray-400"
+            />
+          </motion.div>
+
+          <motion.button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white py-3 rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
+            {loading ? "Signing in..." : "Sign In"}
+          </motion.button>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="relative"
+          >
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-white text-gray-500">Or continue with</span>
+            </div>
+          </motion.div>
+
+          <motion.button
+            type="button"
+            onClick={handleGoogleSignIn}
+            className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+          >
+            <FcGoogle className="text-xl" />
+            <span className="font-semibold text-gray-700">Continue with Google</span>
+          </motion.button>
+        </motion.form>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="text-center mt-6 text-gray-600"
+        >
+          Don't have an account?{" "}
+          <a href="/register" className="text-teal-600 font-semibold hover:text-teal-700">
+            Sign up
+          </a>
+        </motion.p>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+export default Login;
 
 export const Route = createFileRoute("/login")({
   component: Login,
