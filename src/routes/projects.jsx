@@ -10,27 +10,27 @@ function RouteComponent() {
   const INITIAL_PROJECTS = [
     {
       id: 1,
-      url: "https://images.pexels.com/photos/29885889/pexels-photo-29885889.jpeg",
+      url: "https://images.pexels.com/photos/373912/pexels-photo-373912.jpeg",
     },
     {
       id: 2,
-      url: "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg",
+      url: "https://images.pexels.com/photos/374023/pexels-photo-374023.jpeg",
     },
     {
       id: 3,
-      url: "https://images.pexels.com/photos/417321/pexels-photo-417321.jpeg",
+      url: "https://images.pexels.com/photos/3807697/pexels-photo-3807697.jpeg",
     },
     {
       id: 4,
-      url: "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg",
+      url: "https://images.pexels.com/photos/323705/pexels-photo-323705.jpeg",
     },
     {
       id: 5,
-      url: "https://images.pexels.com/photos/279719/pexels-photo-279719.jpeg",
+      url: "https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg",
     },
     {
       id: 6,
-      url: "https://images.pexels.com/photos/17756333/pexels-photo-17756333.jpeg",
+      url: "https://images.pexels.com/photos/356852/pexels-photo-356852.jpeg",
     },
   ];
 
