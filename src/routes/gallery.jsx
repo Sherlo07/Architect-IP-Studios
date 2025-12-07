@@ -11,10 +11,29 @@ function RouteComponent() {
   const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
-    axios
-      .get(`${BASE_URL}/api/architectimages`)
-      .then((res) => setImages(res.data))
-      .catch((error) => console.log("Error fetching images:", error));
+    if (!BASE_URL) {
+      console.error(
+        "Missing VITE_BACKEND_URL! Check your deployment environment variables."
+      );
+      setImages([]);
+      return;
+    }
+    const fetchImages = async () => {
+      try {
+        const res = await axios.get(`${BASE_URL}/api/architectimages`);
+        if (Array.isArray(res.data)) {
+          setImages(res.data);
+        } else {
+          console.error("API did not return an array:", res.data);
+          setImages([]);
+        }
+      } catch (error) {
+        console.error("Error fetching images:", error);
+        setImages([]);
+      }
+    };
+
+    fetchImages();
   }, [BASE_URL]);
 
   return (
@@ -28,17 +47,25 @@ function RouteComponent() {
         </div>
 
         <div className="grid grid-cols-3 gap-4 max-lg:grid-cols-2">
-          {images.map((image) => (
-            <div key={image.id} className="p-2 rounded shadow">
-              <img
-                src={image.url}
-                alt="Architect Design"
-                className="w-full h-[260px] object-cover rounded-lg hover:scale-105 transition-all duration-300"
-              />
-            </div>
-          ))}
+          {images.length > 0 ? (
+            images.map((image) => (
+              <div key={image.id} className="p-2 rounded shadow">
+                <img
+                  src={image.url}
+                  alt="Architect Design"
+                  className="w-full h-[260px] object-cover rounded-lg hover:scale-105 transition-all duration-300"
+                />
+              </div>
+            ))
+          ) : (
+            <p className="col-span-3 text-center text-gray-500">
+              No images found or failed to fetch.
+            </p>
+          )}
         </div>
       </div>
     </div>
   );
 }
+
+export default RouteComponent;
